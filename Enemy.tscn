@@ -1,14 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Idle-Run (44x30).png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://Enemy.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "MoveLeft"
 length = 1.5
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Enemy/Sprite:flip_h")
+tracks/0/path = NodePath("KinematicBody2D/Sprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -20,7 +20,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Enemy/Sprite:frame")
+tracks/1/path = NodePath("KinematicBody2D/Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -37,7 +37,7 @@ resource_name = "MoveRight"
 length = 2.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Enemy/Sprite:flip_h")
+tracks/0/path = NodePath("KinematicBody2D/Sprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -49,7 +49,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Enemy/Sprite:frame")
+tracks/1/path = NodePath("KinematicBody2D/Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -61,37 +61,26 @@ tracks/1/keys = {
 "values": [ 1, 9, 9 ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 18.5, 11 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 19.5, 12 )
+[sub_resource type="CircleShape2D" id=3]
+radius = 20.025
 
 [node name="Enemy" type="Node2D"]
 
-[node name="Enemy" type="KinematicBody2D" parent="."]
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="Animations" type="AnimationPlayer" parent="Enemy"]
+[node name="Animations" type="AnimationPlayer" parent="KinematicBody2D"]
 root_node = NodePath("../..")
 anims/MoveLeft = SubResource( 1 )
 anims/MoveRight = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="Enemy"]
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
 position = Vector2( 485, 310 )
 texture = ExtResource( 1 )
 flip_h = true
 hframes = 10
 frame = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-position = Vector2( 485.5, 312 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 486, 313 )
 shape = SubResource( 3 )
-
-[node name="EnemyArea" type="Area2D" parent="Enemy"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/EnemyArea"]
-position = Vector2( 485.5, 312 )
-shape = SubResource( 4 )
-
-[connection signal="area_entered" from="Enemy/EnemyArea" to="Enemy" method="_on_EnemyArea_area_entered"]

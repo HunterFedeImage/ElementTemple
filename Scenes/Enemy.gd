@@ -8,6 +8,7 @@ var velocity = Vector2(10,0)
 var speed = 10
 var direction = 1
 var _timer = null
+var gravity = 15
 
 
 func _ready():
@@ -40,4 +41,11 @@ func _change_direction():
 	velocity = Vector2(speed * direction,0) 
 
 func _physics_process(delta):
+	velocity.y += gravity
 	velocity = move_and_slide(velocity)
+
+
+func _on_EnemyArea_area_entered(area):
+	if "FireBallArea" in area.name:
+		queue_free()
+
