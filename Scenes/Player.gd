@@ -52,6 +52,7 @@ func _on_Area2D_area_entered(area):
 	print("personaje colisiono con " + area.name)
 	print(area.get_groups())
 	if area.name == "WallArea":
+		print("wall area touch")
 #		queue_free()
 	if area.is_in_group("EnemyArea"):
 		life = life - (enemyDamage - defense)
