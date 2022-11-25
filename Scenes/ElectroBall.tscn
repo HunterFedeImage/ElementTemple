@@ -1,65 +1,17 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Idle-Run (44x30).png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/ElectroBall.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "MoveLeft"
 length = 1.5
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Enemy/Sprite:flip_h")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.5 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Enemy/Sprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 4, 6, 9 ]
-}
 
 [sub_resource type="Animation" id=2]
 resource_name = "MoveRight"
 length = 2.0
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Enemy/Sprite:flip_h")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.4 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Enemy/Sprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.5, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 9, 9 ]
-}
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 18.5, 11 )
@@ -68,30 +20,27 @@ extents = Vector2( 18.5, 11 )
 extents = Vector2( 19.5, 12 )
 
 [node name="Blob" type="Node2D" groups=["Enemies"]]
+scale = Vector2( 0.498301, 0.44 )
 
-[node name="Enemy" type="KinematicBody2D" parent="."]
+[node name="ElectroBallBody" type="KinematicBody2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="Animations" type="AnimationPlayer" parent="Enemy"]
+[node name="Sprite" type="Sprite" parent="ElectroBallBody"]
+texture = ExtResource( 1 )
+
+[node name="Animations" type="AnimationPlayer" parent="ElectroBallBody"]
 root_node = NodePath("../..")
 anims/MoveLeft = SubResource( 1 )
 anims/MoveRight = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="Enemy"]
-position = Vector2( 485, 310 )
-texture = ExtResource( 1 )
-flip_h = true
-hframes = 10
-frame = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-position = Vector2( 485.5, 312 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElectroBallBody"]
+position = Vector2( 0, 1 )
 shape = SubResource( 3 )
 
-[node name="EnemyArea" type="Area2D" parent="Enemy"]
+[node name="ElectroBallArea" type="Area2D" parent="ElectroBallBody" groups=["EnemyArea"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/EnemyArea"]
-position = Vector2( 485.5, 312 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElectroBallBody/ElectroBallArea"]
+position = Vector2( 0, 1 )
 shape = SubResource( 4 )
 
-[connection signal="area_entered" from="Enemy/EnemyArea" to="Enemy" method="_on_EnemyArea_area_entered"]
+[connection signal="area_entered" from="ElectroBallBody/ElectroBallArea" to="ElectroBallBody" method="_on_EnemyArea_area_entered"]

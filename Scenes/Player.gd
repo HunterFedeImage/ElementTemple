@@ -3,7 +3,7 @@ extends KinematicBody2D
 const moveSpeed = 25
 const maxSpeed = 50
 
-const jumpHeight = -300
+var jumpHeight = -300
 
 const up = Vector2(0,-1)
 const gravity = 15
@@ -11,7 +11,16 @@ const gravity = 15
 var motion = Vector2()
 var life = 100
 var defense = 0
+var enemyDamage = 50
+
 onready var sprite = $Sprite
+var _defenseTimer = null
+var _jumpPoweupTimer = null
+
+func _ready():
+	add_defense_powerup_timer()
+	add_jump_powerup_timer()
+
 
 func _physics_process(delta):
 	motion.y += gravity 
@@ -41,10 +50,46 @@ func _physics_process(delta):
 
 func _on_Area2D_area_entered(area):
 	print("personaje colisiono con " + area.name)
-	if area.name == "WaterMedalion":
-		life += 10
-	else: 
-		if area.name == "RockMedalion":
-			defense += 10
+	print(area.get_groups())
+	if area.name == "WallArea":
+#		queue_free()
+	if area.is_in_group("EnemyArea"):
+		life = life - (enemyDamage - defense)
+		get_node("UI/hp").text = "HP: " + str(life)
+	elif area.name == "WaterMedalionArea":
+			life += 10
+			get_node("UI/hp").text = "HP: " + str(life)
+	elif area.name == "EarthMedalionArea":
+		print("tierra")
+		increase_defense_momentarily()
+	print("vida" + str(life))
+	print("defensa" + str(defense))
 	
-	print(life)
+func increase_defense_momentarily():
+	defense += 10
+	_defenseTimer.start()
+	
+func increase_jump_momentarily():
+	jumpHeight -= 100
+	_defenseTimer.start()
+	
+func _on_defense_Timer_timeout():
+	defense -=10
+	print(defense)
+	
+func add_defense_powerup_timer():
+	_defenseTimer = Timer.new()
+	add_child(_defenseTimer)
+	_defenseTimer.connect("timeout", self, "_on_defense_Timer_timeout")
+	_defenseTimer.set_one_shot(true)
+	_defenseTimer.set_wait_time(5.0)
+	
+func add_jump_powerup_timer():
+	_jumpPoweupTimer = Timer.new()
+	add_child(_jumpPoweupTimer)
+	_jumpPoweupTimer.connect("timeout", self, "_on_jump_Timer_timeout")
+	_jumpPoweupTimer.set_one_shot(true)
+	_jumpPoweupTimer.set_wait_time(5.0)
+
+func _on_jump_Timer_timeout():
+	jumpHeight+=100

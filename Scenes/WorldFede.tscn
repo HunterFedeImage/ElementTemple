@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Box.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Fireball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/WaterMedalion.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/EarthMedalion.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Wall.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -55,4 +57,10 @@ position = Vector2( 119, -134 )
 position = Vector2( -345, -352 )
 
 [node name="WaterMedalion" parent="." instance=ExtResource( 5 )]
-position = Vector2( -60, -35 )
+position = Vector2( -104, -281 )
+
+[node name="EarthMedalion" parent="." instance=ExtResource( 6 )]
+position = Vector2( -13, -36 )
+
+[node name="Wall" parent="." instance=ExtResource( 7 )]
+position = Vector2( -246, -221 )

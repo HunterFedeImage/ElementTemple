@@ -88,10 +88,10 @@ frame = 1
 position = Vector2( 485.5, 312 )
 shape = SubResource( 3 )
 
-[node name="EnemyArea" type="Area2D" parent="Enemy"]
+[node name="BlobArea" type="Area2D" parent="Enemy" groups=["EnemyArea"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/EnemyArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/BlobArea"]
 position = Vector2( 485.5, 312 )
 shape = SubResource( 4 )
 
-[connection signal="area_entered" from="Enemy/EnemyArea" to="Enemy" method="_on_EnemyArea_area_entered"]
+[connection signal="area_entered" from="Enemy/BlobArea" to="Enemy" method="_on_EnemyArea_area_entered"]
