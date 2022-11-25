@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Slide__004.png-95e23a3f4efd9111b67c2a8fd1f7e6c3.stex"
+path="res://.import/ball (1).png-84ada7d6fb7795359a3c0f9678b15dd7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Programación Assets/Personaje/Slide__004.png"
-dest_files=[ "res://.import/Slide__004.png-95e23a3f4efd9111b67c2a8fd1f7e6c3.stex" ]
+source_file="res://Programación Assets/Enemigos/ball (1).png"
+dest_files=[ "res://.import/ball (1).png-84ada7d6fb7795359a3c0f9678b15dd7.stex" ]
 
 [params]
 

@@ -10,6 +10,7 @@ var gravity = 15
 
 var motion = Vector2()
 var life = 100
+var maxLife = 100
 var defense = 0
 var enemyDamage = 50
 
@@ -28,14 +29,17 @@ func _physics_process(delta):
 	var friction = false
 	
 	if Input.is_action_pressed("ui_right"):
-		sprite.flip_h = true
+		sprite.flip_h = false
+		get_node("AnimationPlayer").play("MoveRight")
 		motion.x = min(motion.x + moveSpeed,maxSpeed)
 	
 	elif Input.is_action_pressed("ui_left"):
-		sprite.flip_h = false
+		sprite.flip_h = true
+
 		motion.x = max(motion.x - moveSpeed,-maxSpeed)
 	else: 
 		friction = true
+		get_node("AnimationPlayer").play("Idle")
 		
 	if is_on_floor():
 		if Input.is_action_pressed("ui_accept"):
@@ -59,8 +63,9 @@ func _on_Area2D_area_entered(area):
 		life = life - (enemyDamage - defense)
 		get_node("UI/hp").text = "HP: " + str(life)
 	elif area.name == "WaterMedalionArea":
-			life += 10
-			get_node("UI/hp").text = "HP: " + str(life)
+			if life+10 <= maxLife:
+				life += 10
+				get_node("UI/hp").text = "HP: " + str(life)
 	elif area.name == "EarthMedalionArea":
 		print("tierra")
 		increase_defense_momentarily()

@@ -11,7 +11,7 @@ var _timer = null
 
 
 func _ready():
-	get_node("Animations").play("MoveRight")
+	get_node("Animations").play("ElectroMovement")
 	_timer = Timer.new()
 	add_child(_timer)
 

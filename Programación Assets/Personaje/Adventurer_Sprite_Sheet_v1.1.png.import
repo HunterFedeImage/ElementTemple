@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Run__000.png-08e583a4ca54fa68f842de7e5268a0b6.stex"
+path="res://.import/Adventurer_Sprite_Sheet_v1.1.png-a06b235419d5603f78245644836a5b19.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Programación Assets/Personaje/Run__000.png"
-dest_files=[ "res://.import/Run__000.png-08e583a4ca54fa68f842de7e5268a0b6.stex" ]
+source_file="res://Programación Assets/Personaje/Adventurer_Sprite_Sheet_v1.1.png"
+dest_files=[ "res://.import/Adventurer_Sprite_Sheet_v1.1.png-a06b235419d5603f78245644836a5b19.stex" ]
 
 [params]
 
