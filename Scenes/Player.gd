@@ -70,6 +70,7 @@ func _on_Area2D_area_entered(area):
 		get_node("UI/hp").text = "HP: " + str(life)
 		if(life<=0):
 			print("murio")
+			print("Otro cambio")
 			get_node("AnimationPlayer").play("Death")
 	elif area.name == "WaterMedalionArea":
 			if life+10 <= maxLife:
