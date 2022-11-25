@@ -9,6 +9,8 @@ const up = Vector2(0,-1)
 const gravity = 15
 
 var motion = Vector2()
+var life = 100
+var defense = 0
 onready var sprite = $Sprite
 
 func _physics_process(delta):
@@ -35,3 +37,14 @@ func _physics_process(delta):
 			motion.x = lerp(motion.x,0,0.01)
 	
 	motion = move_and_slide(motion,up)
+
+
+func _on_Area2D_area_entered(area):
+	print("personaje colisiono con " + area.name)
+	if area.name == "WaterMedalion":
+		life += 10
+	else: 
+		if area.name == "RockMedalion":
+			defense += 10
+	
+	print(life)
