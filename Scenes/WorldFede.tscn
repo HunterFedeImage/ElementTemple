@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/Fireball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/WaterMedalion.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/EarthMedalion.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Wall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/WindMedalion.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -62,5 +62,5 @@ position = Vector2( -104, -281 )
 [node name="EarthMedalion" parent="." instance=ExtResource( 6 )]
 position = Vector2( -13, -36 )
 
-[node name="Wall" parent="." instance=ExtResource( 7 )]
-position = Vector2( -246, -221 )
+[node name="WindMedalion" parent="." instance=ExtResource( 8 )]
+position = Vector2( -97, -37 )

@@ -6,7 +6,7 @@ const maxSpeed = 50
 var jumpHeight = -300
 
 const up = Vector2(0,-1)
-const gravity = 15
+var gravity = 15
 
 var motion = Vector2()
 var life = 100
@@ -23,6 +23,7 @@ func _ready():
 
 
 func _physics_process(delta):
+#	print(str(gravity))
 	motion.y += gravity 
 	var friction = false
 	
@@ -63,19 +64,24 @@ func _on_Area2D_area_entered(area):
 	elif area.name == "EarthMedalionArea":
 		print("tierra")
 		increase_defense_momentarily()
-	print("vida" + str(life))
-	print("defensa" + str(defense))
+	elif area.name == "WindMedalionArea":
+		print("fede wind medalion")
+		increase_jump_momentarily()
+	print("vida " + str(life))
+	print("defensa " + str(defense))
+	print("jumpHeight " + str(gravity))
 	
 func increase_defense_momentarily():
 	defense += 10
 	_defenseTimer.start()
 	
 func increase_jump_momentarily():
+	print("bajo la gravedad")
 	jumpHeight -= 100
-	_defenseTimer.start()
+	_jumpPoweupTimer.start()
 	
 func _on_defense_Timer_timeout():
-	defense -=10
+	defense -=5
 	print(defense)
 	
 func add_defense_powerup_timer():
@@ -93,4 +99,4 @@ func add_jump_powerup_timer():
 	_jumpPoweupTimer.set_wait_time(5.0)
 
 func _on_jump_Timer_timeout():
-	jumpHeight+=100
+	gravity += 5
