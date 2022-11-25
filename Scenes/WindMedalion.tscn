@@ -16,6 +16,7 @@ position = Vector2( -0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="Icon" type="Sprite" parent="."]
+modulate = Color( 0.368627, 0.823529, 0.223529, 1 )
 texture = ExtResource( 2 )
 hframes = 5
 

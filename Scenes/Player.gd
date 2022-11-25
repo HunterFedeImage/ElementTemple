@@ -27,30 +27,35 @@ func _physics_process(delta):
 #	print(str(gravity))
 	motion.y += gravity 
 	var friction = false
-	
-	if Input.is_action_pressed("ui_right"):
-		sprite.flip_h = false
-		get_node("AnimationPlayer").play("MoveRight")
-		motion.x = min(motion.x + moveSpeed,maxSpeed)
-	
-	elif Input.is_action_pressed("ui_left"):
-		sprite.flip_h = true
-
-		motion.x = max(motion.x - moveSpeed,-maxSpeed)
-	else: 
-		friction = true
-		get_node("AnimationPlayer").play("Idle")
+	if(life >0 ):
+		if Input.is_action_pressed("ui_right"):
+			sprite.flip_h = false
+			get_node("AnimationPlayer").play("MoveRight")
+			motion.x = min(motion.x + moveSpeed,maxSpeed)
 		
-	if is_on_floor():
-		if Input.is_action_pressed("ui_accept"):
-			motion.y = jumpHeight
-		if friction == true:
-			motion.x = lerp(motion.x ,0,0.5)
-	else:
-		if friction == true:
-			motion.x = lerp(motion.x,0,0.01)
-	
-	motion = move_and_slide(motion,up)
+		elif Input.is_action_pressed("ui_left"):
+			sprite.flip_h = true
+
+			motion.x = max(motion.x - moveSpeed,-maxSpeed)
+		elif Input.is_key_pressed(KEY_A):
+			get_node("AnimationPlayer").play("Attack")
+		else: 
+			friction = true
+			get_node("AnimationPlayer").play("Idle")
+			
+		if is_on_floor():
+			if Input.is_action_pressed("ui_accept"):
+				motion.y = jumpHeight
+				get_node("AnimationPlayer").play("Jump")
+			if friction == true:
+				motion.x = lerp(motion.x ,0,0.5)
+				get_node("AnimationPlayer").play("Idle")
+		else:
+			if friction == true:
+				motion.x = lerp(motion.x,0,0.01)
+				get_node("AnimationPlayer").play("Idle")
+		
+		motion = move_and_slide(motion,up)
 
 
 func _on_Area2D_area_entered(area):
@@ -60,8 +65,12 @@ func _on_Area2D_area_entered(area):
 		print("wall area touch")
 #		queue_free()
 	if area.is_in_group("EnemyArea"):
+		print("Se choco con enemigo")
 		life = life - (enemyDamage - defense)
 		get_node("UI/hp").text = "HP: " + str(life)
+		if(life<=0):
+			print("murio")
+			get_node("AnimationPlayer").play("Death")
 	elif area.name == "WaterMedalionArea":
 			if life+10 <= maxLife:
 				life += 10

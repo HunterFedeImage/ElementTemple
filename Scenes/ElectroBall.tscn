@@ -34,7 +34,7 @@ loop = true
 extents = Vector2( 29.0989, 27.2727 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 28.0954, 27.2727 )
+extents = Vector2( 35.1193, 31.8182 )
 
 [node name="ElectroBall" type="Node2D" groups=["Enemies"]]
 scale = Vector2( 0.498301, 0.44 )
@@ -62,7 +62,7 @@ shape = SubResource( 3 )
 [node name="ElectroBallArea" type="Area2D" parent="ElectroBallBody" groups=["EnemyArea"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ElectroBallBody/ElectroBallArea"]
-position = Vector2( -4.78463e-07, -5.41861e-07 )
+position = Vector2( -3.01023, -4.06395e-07 )
 shape = SubResource( 4 )
 
 [connection signal="area_entered" from="ElectroBallBody/ElectroBallArea" to="ElectroBallBody" method="_on_EnemyArea_area_entered"]
