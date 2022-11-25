@@ -15,6 +15,6 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity)
 
 
-func _on_FireBallArea_area_entered(area):
-	queue_free()
-	pass # Replace with function body.
+#func _on_FireBallArea_area_entered(area):
+#	queue_free()
+#	pass # Replace with function body.

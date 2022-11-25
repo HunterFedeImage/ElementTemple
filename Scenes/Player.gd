@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
-const moveSpeed = 25
-const maxSpeed = 50
+const moveSpeed = 50
+const maxSpeed = 100
 
-var jumpHeight = -300
+var jumpHeight = -350
 
 const up = Vector2(0,-1)
 var gravity = 15
@@ -17,7 +17,7 @@ var enemyDamage = 50
 onready var sprite = $Sprite
 var _defenseTimer = null
 var _jumpPoweupTimer = null
-
+var bullet = preload ("res://Scenes/Fireball.tscn")
 func _ready():
 	add_defense_powerup_timer()
 	add_jump_powerup_timer()
@@ -56,6 +56,9 @@ func _physics_process(delta):
 				get_node("AnimationPlayer").play("Idle")
 		
 		motion = move_and_slide(motion,up)
+	
+		if Input.is_action_just_pressed("attack"):
+			fire()
 
 
 func _on_Area2D_area_entered(area):
@@ -63,7 +66,8 @@ func _on_Area2D_area_entered(area):
 	print(area.get_groups())
 	if area.name == "WallArea":
 		print("wall area touch")
-#		queue_free()
+		get_tree().reload_current_scene()
+		
 	if area.is_in_group("EnemyArea"):
 		print("Se choco con enemigo")
 		life = life - (enemyDamage - defense)
@@ -72,6 +76,7 @@ func _on_Area2D_area_entered(area):
 			print("murio")
 			print("Otro cambio")
 			get_node("AnimationPlayer").play("Death")
+			get_tree().reload_current_scene()
 	elif area.name == "WaterMedalionArea":
 			if life+10 <= maxLife:
 				life += 10
@@ -115,3 +120,8 @@ func add_jump_powerup_timer():
 
 func _on_jump_Timer_timeout():
 	gravity += 5
+	
+func fire ():
+	var bullet_instance = bullet.instance()
+	bullet_instance.position = get_global_position()
+	get_tree().get_root().call_deferred("add_child",bullet_instance)
