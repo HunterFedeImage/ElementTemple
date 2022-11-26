@@ -17,7 +17,7 @@ var enemyDamage = 50
 onready var sprite = $Sprite
 var _defenseTimer = null
 var _jumpPoweupTimer = null
-var bullet = preload ("res://Scenes/Fireball.tscn")
+var fireball = preload ("res://Scenes/Fireball.tscn")
 func _ready():
 	add_defense_powerup_timer()
 	add_jump_powerup_timer()
@@ -37,8 +37,6 @@ func _physics_process(delta):
 			sprite.flip_h = true
 
 			motion.x = max(motion.x - moveSpeed,-maxSpeed)
-		elif Input.is_key_pressed(KEY_A):
-			get_node("AnimationPlayer").play("Attack")
 		else: 
 			friction = true
 			get_node("AnimationPlayer").play("Idle")
@@ -58,6 +56,7 @@ func _physics_process(delta):
 		motion = move_and_slide(motion,up)
 	
 		if Input.is_action_just_pressed("attack"):
+			get_node("AnimationPlayer").play("Attack")
 			fire()
 
 
@@ -122,6 +121,6 @@ func _on_jump_Timer_timeout():
 	gravity += 5
 	
 func fire ():
-	var bullet_instance = bullet.instance()
-	bullet_instance.position = get_global_position()
-	get_tree().get_root().call_deferred("add_child",bullet_instance)
+	var fireball_instance = fireball.instance()
+	fireball_instance.position = get_global_position()
+	get_tree().get_root().call_deferred("add_child",fireball_instance)
