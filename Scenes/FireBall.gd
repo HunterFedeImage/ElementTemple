@@ -1,9 +1,12 @@
 extends Node2D
 
-var velocity = Vector2(70,0)
+var speed = 80
+var velocity = null
 var _disapearTimer = null
+var direction = 1
 
 func _ready():
+	velocity = Vector2(speed * direction,0)
 	disapear_timer_start()
 
 func _process(delta):
@@ -14,7 +17,7 @@ func disapear_timer_start():
 	add_child(_disapearTimer)
 	_disapearTimer.connect("timeout", self, "_on_disapear_timeout")
 	_disapearTimer.set_one_shot(true)
-	_disapearTimer.set_wait_time(1.0)
+	_disapearTimer.set_wait_time(2.0)
 	_disapearTimer.start()
 
 func _on_disapear_timeout():

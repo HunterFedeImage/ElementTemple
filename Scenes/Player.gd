@@ -123,4 +123,8 @@ func _on_jump_Timer_timeout():
 func fire ():
 	var fireball_instance = fireball.instance()
 	fireball_instance.position = get_global_position()
+	if(sprite.flip_h == true):
+		fireball_instance.direction = -1
+	else:
+		fireball_instance.direction = 1
 	get_tree().get_root().call_deferred("add_child",fireball_instance)
