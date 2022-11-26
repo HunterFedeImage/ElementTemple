@@ -60,7 +60,6 @@ func _physics_process(delta):
 		motion = move_and_slide(motion,up)
 	
 		var time_elapsed = OS.get_ticks_msec ( ) - time_fire
-		print("tiempo que paso " + str(time_elapsed))
 		if Input.is_action_just_pressed("attack") and time_elapsed >= 800:
 			time_fire = OS.get_ticks_msec ( )
 			get_node("AnimationPlayer").play("Attack")
@@ -75,12 +74,9 @@ func _on_Area2D_area_entered(area):
 		get_tree().reload_current_scene()
 		
 	if area.is_in_group("EnemyArea"):
-		print("Se choco con enemigo")
 		life = life - (enemyDamage - defense)
 		get_node("UI/hp").text = "HP: " + str(life)
 		if(life<=0):
-			print("murio")
-			print("Otro cambio")
 			get_node("AnimationPlayer").play("Death")
 			get_tree().reload_current_scene()
 	elif area.name == "WaterMedalionArea":
@@ -93,9 +89,6 @@ func _on_Area2D_area_entered(area):
 	elif area.name == "WindMedalionArea":
 		print("fede wind medalion")
 		increase_jump_momentarily()
-	print("vida " + str(life))
-	print("defensa " + str(defense))
-	print("jumpHeight " + str(gravity))
 	
 func increase_defense_momentarily():
 	defense += 10
