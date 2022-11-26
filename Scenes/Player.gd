@@ -18,6 +18,10 @@ onready var sprite = $Sprite
 var _defenseTimer = null
 var _jumpPoweupTimer = null
 var fireball = preload ("res://Scenes/Fireball.tscn")
+var time_start = 0
+var time_fire = 0
+
+
 func _ready():
 	add_defense_powerup_timer()
 	add_jump_powerup_timer()
@@ -55,7 +59,10 @@ func _physics_process(delta):
 		
 		motion = move_and_slide(motion,up)
 	
-		if Input.is_action_just_pressed("attack"):
+		var time_elapsed = OS.get_ticks_msec ( ) - time_fire
+		print("tiempo que paso " + str(time_elapsed))
+		if Input.is_action_just_pressed("attack") and time_elapsed >= 800:
+			time_fire = OS.get_ticks_msec ( )
 			get_node("AnimationPlayer").play("Attack")
 			fire()
 
