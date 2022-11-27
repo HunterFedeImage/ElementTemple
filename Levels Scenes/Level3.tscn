@@ -180,12 +180,6 @@ extents = Vector2( 23.5, 86.5 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 726, 259 )
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( -1, 1 )
-current = true
-offset_h = 1.0
-offset_v = -0.05
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 15 )
 cell_size = Vector2( 16, 16 )
