@@ -1,6 +1,6 @@
 extends Node2D
 
-var speed = 80
+var speed = 140
 var velocity = null
 var _disapearTimer = null
 var direction = 1
@@ -8,6 +8,8 @@ var direction = 1
 func _ready():
 	velocity = Vector2(speed * direction,0)
 	disapear_timer_start()
+	get_node("AnimationPlayer").play("Fire")
+
 
 func _process(delta):
 	self.translate(velocity * delta) # changing node's position
