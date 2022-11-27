@@ -20,6 +20,7 @@ var _jumpPoweupTimer = null
 var fireball = preload ("res://Scenes/Fireball.tscn")
 var time_start = 0
 var time_fire = 0
+var animation_death_played = false
 
 
 func _ready():
@@ -77,17 +78,15 @@ func _on_Area2D_area_entered(area):
 		life = life - (enemyDamage - defense)
 		get_node("UI/hp").text = "HP: " + str(life)
 		if(life<=0):
+			animation_death_played = true
 			get_node("AnimationPlayer").play("Death")
-			get_tree().reload_current_scene()
 	elif area.name == "WaterMedalionArea":
 			if life+10 <= maxLife:
 				life += 10
 				get_node("UI/hp").text = "HP: " + str(life)
 	elif area.name == "EarthMedalionArea":
-		print("tierra")
 		increase_defense_momentarily()
 	elif area.name == "WindMedalionArea":
-		print("fede wind medalion")
 		increase_jump_momentarily()
 	
 func increase_defense_momentarily():
@@ -128,3 +127,8 @@ func fire ():
 	else:
 		fireball_instance.direction = 1
 	get_tree().get_root().call_deferred("add_child",fireball_instance)
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if animation_death_played:
+		get_tree().reload_current_scene()
