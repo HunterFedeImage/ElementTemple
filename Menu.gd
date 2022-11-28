@@ -8,4 +8,4 @@ func _on_Play_pressed():
 
 
 func _on_Salir_pressed():
-	get_tree().Quit()
+	get_tree().quit()
